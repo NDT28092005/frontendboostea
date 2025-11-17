@@ -362,3 +362,82 @@
     align-items: flex-start;
   }
 }
+
+/* Responsive for max-width 579px */
+@media (max-width: 579px) {
+  .login-page {
+    padding: 15px;
+  }
+  
+  .login-container {
+    max-width: 100%;
+  }
+  
+  .login-card {
+    padding: 25px 18px;
+  }
+  
+  .logo-container {
+    font-size: 1.3rem;
+  }
+  
+  .login-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .input-container input {
+    padding: 10px 12px 10px 40px;
+    font-size: 0.95rem;
+  }
+  
+  .login-btn {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Responsive for max-width 390px */
+@media (max-width: 390px) {
+  .login-page {
+    padding: 10px;
+  }
+  
+  .login-card {
+    padding: 20px 15px;
+  }
+  
+  .logo-container {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+  
+  .login-header h2 {
+    font-size: 1.1rem;
+  }
+  
+  .login-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .input-container input {
+    padding: 8px 10px 8px 35px;
+    font-size: 0.9rem;
+  }
+  
+  .input-icon {
+    left: 12px;
+  }
+  
+  .password-toggle {
+    right: 12px;
+  }
+  
+  .login-btn {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .register-link {
+    font-size: 0.85rem;
+  }
+}

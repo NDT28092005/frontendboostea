@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../../../api/axios";
 import { Filter, Grid, List, Search, ShoppingCart, Heart, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import "../../../styles/product.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Header from "../../common/Header";
 import Footer from "../../common/Footer";
 const Products = () => {
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("all");
@@ -17,11 +18,22 @@ const Products = () => {
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [totalProducts, setTotalProducts] = useState(0);
+
+    // Đọc category từ URL query params khi component mount
+    useEffect(() => {
+        const categoryParam = searchParams.get('category');
+        if (categoryParam) {
+            setSelectedCategory(categoryParam);
+        }
+    }, [searchParams]);
 
     useEffect(() => {
         fetchCategories();
+    }, []);
+
+    useEffect(() => {
         fetchProducts(selectedCategory, currentPage);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCategory, currentPage]);
 
     const fetchCategories = async () => {
@@ -47,7 +59,6 @@ const Products = () => {
             setProducts(res.data.data);
             setCurrentPage(res.data.meta.current_page);
             setTotalPages(res.data.meta.last_page);
-            setTotalProducts(res.data.meta.total);
         } catch (error) {
             console.error("Error fetching products:", error);
         } finally {
@@ -58,6 +69,12 @@ const Products = () => {
     const handleCategoryClick = (id) => {
         setSelectedCategory(id);
         setCurrentPage(1); // reset về page 1 khi chọn danh mục khác
+        // Cập nhật URL với query params
+        if (id === "all") {
+            setSearchParams({});
+        } else {
+            setSearchParams({ category: id });
+        }
     };
 
     const handlePageChange = (page) => {
@@ -220,14 +237,6 @@ const Products = () => {
                                                             -{Math.round((1 - item.price / item.original_price) * 100)}%
                                                         </span>
                                                     )}
-                                                    <div className="product-actions">
-                                                        <button className="action-btn">
-                                                            <Heart size={16} />
-                                                        </button>
-                                                        <button className="action-btn">
-                                                            <ShoppingCart size={16} />
-                                                        </button>
-                                                    </div>
                                                 </div>
                                                 <div className="product-info">
                                                     <h5>{item.name}</h5>

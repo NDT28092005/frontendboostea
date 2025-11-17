@@ -107,10 +107,30 @@ export default function Header() {
         navigate("/");
     };
 
+    // Hàm scroll to top khi click NavLink
+    const handleNavClick = (path) => {
+        navigate(path);
+        // Scroll to top với smooth behavior sau khi navigate
+        setTimeout(() => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }, 100);
+    };
+
+    // Scroll to top khi route thay đổi
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [location.pathname]);
+
     return (
         <Navbar expand="lg" className={`header ${scrolled ? "header-shadow" : ""}`} sticky="top">
             <Container className="header-container">
-                <Navbar.Brand className="header-logo" onClick={() => navigate("/")}>
+                <Navbar.Brand className="header-logo" onClick={() => handleNavClick("/")}>
                     <span>🍃 Boostea</span>
                 </Navbar.Brand>
 
@@ -121,25 +141,25 @@ export default function Header() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="header-menu me-auto">
                         <Nav.Link 
-                            onClick={() => navigate("/")}
+                            onClick={() => handleNavClick("/")}
                             className={location.pathname === "/" ? "active" : ""}
                         >
                             Trang Chủ
                         </Nav.Link>
                         <Nav.Link 
-                            onClick={() => navigate("/products")}
+                            onClick={() => handleNavClick("/products")}
                             className={location.pathname === "/products" ? "active" : ""}
                         >
                             Tất Cả Sản Phẩm
                         </Nav.Link>
                         <Nav.Link 
-                            onClick={() => navigate("/about")}
+                            onClick={() => handleNavClick("/about")}
                             className={location.pathname === "/about" ? "active" : ""}
                         >
                             Về Chúng Tôi
                         </Nav.Link>
                         <Nav.Link 
-                            onClick={() => navigate("/orders")}
+                            onClick={() => handleNavClick("/orders")}
                             className={location.pathname === "/orders" ? "active" : ""}
                         >
                             Đơn Hàng
@@ -148,7 +168,7 @@ export default function Header() {
 
                     <div className="header-actions">
                         {/* Cart Button ✅ */}
-                        <Button className="cart-btn" onClick={() => navigate("/cart")}>
+                        <Button className="cart-btn" onClick={() => handleNavClick("/cart")}>
                             <FaShoppingCart />
                             {cartCount > 0 && (
                                 <span className="cart-count">{cartCount}</span>
@@ -167,14 +187,14 @@ export default function Header() {
                                     )}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu align="end">
-                                    <Dropdown.Item onClick={() => navigate("/profile")}>
+                                    <Dropdown.Item onClick={() => handleNavClick("/profile")}>
                                         <FaUser /> Tài khoản của tôi
                                     </Dropdown.Item>
-                                    <Dropdown.Item onClick={() => navigate("/orders")}>
+                                    <Dropdown.Item onClick={() => handleNavClick("/orders")}>
                                         <FaShoppingCart /> Đơn hàng của tôi
                                     </Dropdown.Item>
                                     {user.role === "admin" && (
-                                        <Dropdown.Item onClick={() => navigate("/admin")}>
+                                        <Dropdown.Item onClick={() => handleNavClick("/admin")}>
                                             <FaCog /> Quản trị
                                         </Dropdown.Item>
                                     )}
@@ -185,7 +205,7 @@ export default function Header() {
                                 </Dropdown.Menu>
                             </Dropdown>
                         ) : (
-                            <Button className="btn-login" onClick={() => navigate("/login")}>
+                            <Button className="btn-login" onClick={() => handleNavClick("/login")}>
                                 Đăng Nhập
                             </Button>
                         )}

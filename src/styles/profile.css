@@ -355,6 +355,80 @@
   }
 }
 
+/* Responsive for max-width 579px */
+@media (max-width: 579px) {
+  .profile-container {
+    padding: 30px 15px;
+  }
+  
+  .profile-container h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .profile-form {
+    padding: 30px 18px;
+  }
+  
+  .profile-avatar img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .profile-avatar::after {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .profile-input {
+    padding: 11px 15px;
+    font-size: 0.95rem;
+  }
+  
+  .profile-btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+}
+
+/* Responsive for max-width 390px */
+@media (max-width: 390px) {
+  .profile-container {
+    padding: 20px 10px;
+  }
+  
+  .profile-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
+  
+  .profile-form {
+    padding: 25px 15px;
+  }
+  
+  .profile-avatar img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .profile-avatar::after {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+  }
+  
+  .profile-input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .profile-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
 /* Additional Fields Styling (if needed later) */
 .form-group {
   width: 100%;

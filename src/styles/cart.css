@@ -556,6 +556,123 @@
     font-size: 1.2rem;
   }
 }
+
+/* Responsive for max-width 579px */
+@media (max-width: 579px) {
+  .cart-page {
+    padding: 20px 0;
+  }
+  
+  .cart-header {
+    padding: 0 15px;
+  }
+  
+  .cart-title h1 {
+    font-size: 1.4rem;
+  }
+  
+  .cart-count {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .item-image {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .item-details h3 {
+    font-size: 0.95rem;
+  }
+  
+  .item-price .current-price {
+    font-size: 0.95rem;
+  }
+  
+  .quantity-btn {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .quantity-value {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .total-price {
+    font-size: 0.95rem;
+  }
+  
+  .cart-summary {
+    padding: 20px;
+  }
+  
+  .summary-content h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Responsive for max-width 390px */
+@media (max-width: 390px) {
+  .cart-page {
+    padding: 15px 0;
+  }
+  
+  .cart-header {
+    padding: 0 10px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .cart-title h1 {
+    font-size: 1.2rem;
+  }
+  
+  .cart-count {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+  
+  .item-image {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .item-details h3 {
+    font-size: 0.9rem;
+  }
+  
+  .item-price .current-price {
+    font-size: 0.9rem;
+  }
+  
+  .quantity-btn {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .quantity-value {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .total-price {
+    font-size: 0.9rem;
+  }
+  
+  .cart-summary {
+    padding: 15px;
+  }
+  
+  .summary-content h3 {
+    font-size: 1rem;
+  }
+  
+  .btn-checkout {
+    padding: 12px 15px;
+    font-size: 1rem;
+  }
+}
 .select-all-checkbox input[type="checkbox"],
 .item-checkbox input[type="checkbox"] {
   display: none !important;

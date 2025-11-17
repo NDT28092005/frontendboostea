@@ -297,3 +297,110 @@
     }
 }
 
+/* Responsive for max-width 579px */
+@media (max-width: 579px) {
+    .policy-page {
+        padding: 50px 0 25px;
+    }
+
+    .policy-header {
+        padding: 18px 0;
+    }
+
+    .policy-icon {
+        font-size: 2.8rem;
+    }
+
+    .policy-title {
+        font-size: 1.7rem;
+    }
+
+    .policy-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .policy-content {
+        padding: 22px 18px;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .section-content {
+        font-size: 0.93rem;
+    }
+
+    .section-content h3 {
+        font-size: 1.05rem;
+    }
+
+    .process-list li {
+        padding-left: 48px;
+    }
+
+    .process-list li::before {
+        width: 34px;
+        height: 34px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Responsive for max-width 390px */
+@media (max-width: 390px) {
+    .policy-page {
+        padding: 40px 0 20px;
+    }
+
+    .policy-header {
+        padding: 15px 0;
+    }
+
+    .policy-icon {
+        font-size: 2.5rem;
+    }
+
+    .policy-title {
+        font-size: 1.5rem;
+    }
+
+    .policy-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .policy-content {
+        padding: 20px 15px;
+    }
+
+    .section-title {
+        font-size: 1.15rem;
+    }
+
+    .section-content {
+        font-size: 0.9rem;
+    }
+
+    .section-content h3 {
+        font-size: 1rem;
+    }
+
+    .process-list li {
+        padding-left: 45px;
+    }
+
+    .process-list li::before {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .shipping-table {
+        font-size: 0.85rem;
+    }
+
+    .shipping-table th,
+    .shipping-table td {
+        padding: 8px;
+    }
+}
+

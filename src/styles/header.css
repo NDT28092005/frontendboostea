@@ -37,8 +37,10 @@
     align-items: center;
     justify-content: space-between;
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 20px;
+    box-sizing: border-box;
 }
 
 /* ===== Mobile Toggle ===== */
@@ -456,5 +458,84 @@
     .btn-login {
         padding: 6px 15px;
         font-size: 0.9rem;
+    }
+}
+
+/* Responsive for max-width 579px */
+@media (max-width: 579px) {
+    .header-container {
+        padding: 0 10px;
+        max-width: 100%;
+    }
+    
+    .header-logo {
+        font-size: 20px;
+    }
+    
+    .header-search.open {
+        width: 200px;
+    }
+    
+    .user-avatar,
+    .user-avatar-placeholder {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .btn-login {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Responsive for max-width 430px (iPhone 14 Pro Max) */
+@media (max-width: 430px) {
+    .header-container {
+        padding: 0 10px;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .header {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Responsive for max-width 390px */
+@media (max-width: 390px) {
+    .header-container {
+        padding: 0 8px;
+        max-width: 100%;
+    }
+    
+    .header-logo {
+        font-size: 18px;
+    }
+    
+    .header-search.open {
+        width: 150px;
+        margin-left: 5px;
+    }
+    
+    .header-search input {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+    
+    .user-avatar,
+    .user-avatar-placeholder {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .btn-login {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .dropdown-menu {
+        min-width: 180px;
     }
 }

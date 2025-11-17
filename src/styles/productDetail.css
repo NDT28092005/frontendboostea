@@ -1189,6 +1189,139 @@
     gap: 15px;
   }
 }
+
+/* Responsive for max-width 579px */
+@media (max-width: 579px) {
+  .product-detail-page {
+    padding: 20px 0;
+  }
+  
+  .product-detail-page .container {
+    padding: 0 15px;
+  }
+  
+  .product-name {
+    font-size: 1.4rem;
+  }
+  
+  .price {
+    font-size: 1.4rem;
+  }
+  
+  .main-image {
+    height: 280px;
+  }
+  
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .product-meta {
+    padding: 12px;
+  }
+  
+  .quantity-control input {
+    width: 40px;
+    font-size: 0.95rem;
+  }
+  
+  .btn-primary, .btn-secondary {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+  
+  .product-tabs {
+    padding: 20px 15px;
+  }
+  
+  .tab-header {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .related-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  
+  .review-form {
+    padding: 20px 15px;
+  }
+  
+  .review-item {
+    padding: 15px;
+  }
+}
+
+/* Responsive for max-width 390px */
+@media (max-width: 390px) {
+  .product-detail-page {
+    padding: 15px 0;
+  }
+  
+  .product-detail-page .container {
+    padding: 0 10px;
+  }
+  
+  .product-name {
+    font-size: 1.2rem;
+  }
+  
+  .price {
+    font-size: 1.2rem;
+  }
+  
+  .main-image {
+    height: 250px;
+  }
+  
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .product-meta {
+    padding: 10px;
+  }
+  
+  .quantity-control input {
+    width: 35px;
+    font-size: 0.9rem;
+  }
+  
+  .btn-primary, .btn-secondary {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .product-tabs {
+    padding: 15px 10px;
+  }
+  
+  .tab-header {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .related-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  
+  .review-form {
+    padding: 15px 10px;
+  }
+  
+  .review-item {
+    padding: 12px;
+  }
+  
+  .review-avatar {
+    width: 40px;
+    height: 40px;
+  }
+}
 /* Zoom Lens Styles */
 .main-image-container {
   position: relative;

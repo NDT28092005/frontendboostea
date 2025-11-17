@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import axiosInstance from "../../api/axios";
 import Carousel from "react-bootstrap/Carousel";
 import { ChevronLeft, ChevronRight, Gift, Star, Truck, Shield, Play, Pause, Sparkles, Leaf, Package, Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 
 const Content = () => {
+  const navigate = useNavigate();
   const [index, setIndex] = useState(0);
   const [featuredGifts, setFeaturedGifts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -298,11 +300,7 @@ const Content = () => {
                                   {gift.is_new && <span className="product-badge new">Mới</span>}
                                   {gift.discount && <span className="product-badge discount">-{gift.discount}%</span>}
                                 </div>
-                                <div className="product-actions">
-                                  <button className="action-btn">
-                                    <Heart size={18} />
-                                  </button>
-                                </div>
+                                
                               </div>
                               <div className="product-info">
                                 <h4>{gift.name}</h4>
@@ -310,7 +308,12 @@ const Content = () => {
                                   <p className="price">{gift.price.toLocaleString()}đ</p>
                                   {gift.old_price && <p className="old-price">{gift.old_price.toLocaleString()}đ</p>}
                                 </div>
-                                <button className="btn-secondary">Mua ngay</button>
+                                <button 
+                                  className="btn-secondary"
+                                  onClick={() => navigate(`/products/${gift.id}`)}
+                                >
+                                  Mua ngay
+                                </button>
                               </div>
                             </div>
                           ))}
@@ -383,7 +386,12 @@ const Content = () => {
                         {categories
                           .slice(pageIndex * itemsPerPage.categories, (pageIndex + 1) * itemsPerPage.categories)
                           .map((category) => (
-                            <div className="card category-card" key={category.id}>
+                            <div 
+                              className="card category-card" 
+                              key={category.id}
+                              onClick={() => navigate(`/products?category=${category.id}`)}
+                              style={{ cursor: 'pointer' }}
+                            >
                               <div className="category-image-container">
                                 <img src={category.image_url} alt={category.name} />
                                 <div className="category-overlay">
