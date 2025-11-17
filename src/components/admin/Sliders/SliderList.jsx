@@ -7,7 +7,7 @@ export default function SliderList() {
 
   const loadSliders = () => {
     axiosInstance.get("/admin/sliders")
-      .then(res => setSliders(res.data));
+      .then(res => setSliders(res.data.data));
   };
 
   useEffect(() => {
