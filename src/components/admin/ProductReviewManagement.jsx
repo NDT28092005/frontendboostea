@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../../../api/axios";
+import axiosInstance from "../../api/axios";
 import { useParams } from "react-router-dom";
 
 export default function ProductReviewManagement() {
