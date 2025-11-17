@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import { FaBars, FaUser, FaSignOutAlt, FaCog, FaShoppingCart } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext';
-import axios from "axios";
+import axiosInstance from "../../api/axios";
 import "../../styles/header.css";
 
 export default function Header() {
@@ -30,7 +30,7 @@ export default function Header() {
 
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.get("http://localhost:8000/api/cart", {
+            const res = await axiosInstance.get("/cart", {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -55,7 +55,8 @@ export default function Header() {
                     const parsedUser = JSON.parse(storedUser);
                     // Format avatar URL if needed
                     if (parsedUser.avatar && !parsedUser.avatar.startsWith("http")) {
-                        parsedUser.avatar = `http://localhost:8000/storage/${parsedUser.avatar}`;
+                        const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+                        parsedUser.avatar = `${baseUrl}/storage/${parsedUser.avatar}`;
                     }
                     // Chỉ set user nếu chưa có hoặc khác với user hiện tại
                     setUser(prevUser => {

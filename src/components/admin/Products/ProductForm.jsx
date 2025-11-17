@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../../api/axios";
 
 export default function ProductForm({ mode }) {
     const { id } = useParams();
@@ -26,14 +26,14 @@ export default function ProductForm({ mode }) {
 
     // ✅ load categories từ API
     useEffect(() => {
-        axios.get("http://localhost:8000/api/admin/categories")
+        axiosInstance.get("/admin/categories")
             .then(res => setCategories(res.data.data ?? res.data));
     }, []);
 
     // ✅ Load product nếu editing
     useEffect(() => {
         if (mode === "edit") {
-            axios.get(`http://localhost:8000/api/admin/products/${id}`)
+            axiosInstance.get(`/admin/products/${id}`)
                 .then(res => {
                     const data = res.data;
 
@@ -88,12 +88,12 @@ export default function ProductForm({ mode }) {
         }
 
         if (mode === "create") {
-            await axios.post("http://localhost:8000/api/admin/products", formData, {
+            await axiosInstance.post("/admin/products", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
         } else {
-            await axios.post(
-                `http://localhost:8000/api/admin/products/${id}?_method=PUT`,
+            await axiosInstance.post(
+                `/admin/products/${id}?_method=PUT`,
                 formData,
                 { headers: { "Content-Type": "multipart/form-data" } }
             );

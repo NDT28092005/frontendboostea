@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 
 export default function VerifyEmail() {
   const location = useLocation();
@@ -15,7 +15,7 @@ export default function VerifyEmail() {
       return;
     }
 
-    axios.post("http://localhost:8000/api/email/verify", { id: userId, token })
+    axiosInstance.post("/email/verify", { id: userId, token })
       .then(res => {
         if (res.data.status) {
           alert(res.data.message);

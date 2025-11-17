@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axiosInstance from "../../../api/axios";
 import Header from "../../common/Header";
 import Footer from "../../common/Footer";
 import {
@@ -70,20 +71,19 @@ const PaymentQR = () => {
 
                 // Cập nhật trạng thái đơn hàng
                 const currentToken = localStorage.getItem("token") || sessionStorage.getItem("token");
-                await fetch(`http://localhost:8000/api/orders/${order_id}/status`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${currentToken}`,
-                    },
-                    body: JSON.stringify({ status: "paid" }),
-                });
+                await axiosInstance.put(
+                    `/orders/${order_id}/status`,
+                    { status: "paid" },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${currentToken}`,
+                        },
+                    }
+                );
 
                 // Xóa giỏ hàng
-                await fetch("http://localhost:8000/api/cart/clear", {
-                    method: "DELETE",
+                await axiosInstance.delete("/cart/clear", {
                     headers: {
-                        "Content-Type": "application/json",
                         Authorization: `Bearer ${currentToken}`,
                     },
                 });

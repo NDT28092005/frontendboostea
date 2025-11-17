@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 import Header from "../../common/Header";
 import Footer from "../../common/Footer";
 import {
@@ -45,13 +45,13 @@ const ProductDetail = () => {
     }, [id]);
 
     const fetchReviews = async () => {
-        const res = await axios.get(`http://localhost:8000/api/products/${id}/reviews`);
+        const res = await axiosInstance.get(`/products/${id}/reviews`);
         setReviews(res.data);
     };
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/api/admin/products/${id}`);
+                const res = await axiosInstance.get(`/admin/products/${id}`);
 
                 // ✅ Nếu không có gallery thì thêm ảnh chính vào gallery
                 const images = res.data.images && res.data.images.length > 0
@@ -62,7 +62,7 @@ const ProductDetail = () => {
                 setMainImage(images[0].image_url);
 
                 if (res.data.category_id) {
-                    const relatedRes = await axios.get(`http://localhost:8000/api/admin/products`, {
+                    const relatedRes = await axiosInstance.get(`/admin/products`, {
                         params: { category_id: res.data.category_id, limit: 4 },
                     });
 
@@ -147,8 +147,8 @@ const ProductDetail = () => {
         }
 
         try {
-            await axios.post(
-                "http://localhost:8000/api/cart/add",
+            await axiosInstance.post(
+                "/cart/add",
                 {
                     product_id: product.id,
                     quantity: quantity,
@@ -180,8 +180,8 @@ const ProductDetail = () => {
         }
 
         try {
-            await axios.post(
-                "http://localhost:8000/api/reviews",
+            await axiosInstance.post(
+                "/reviews",
                 {
                     product_id: id,
                     rating: reviewForm.rating,

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../../api/axios";
 
 export default function CategoryForm({ mode }) {
   const { id } = useParams();
@@ -12,7 +12,7 @@ export default function CategoryForm({ mode }) {
 
   useEffect(() => {
     if (mode === "edit") {
-      axios.get(`http://localhost:8000/api/admin/categories/${id}`)
+      axiosInstance.get(`/admin/categories/${id}`)
         .then(res => {
           setName(res.data.name);
           setImagePreview(res.data.image_url); // ✅ Load image cũ
@@ -38,9 +38,9 @@ export default function CategoryForm({ mode }) {
       if (mode === "edit") {
         formData.append("_method", "PUT");  // ✅ báo cho Laravel hiểu đây là PUT
 
-        await axios.post(`http://localhost:8000/api/admin/categories/${id}`, formData);
+        await axiosInstance.post(`/admin/categories/${id}`, formData);
       } else {
-        await axios.post("http://localhost:8000/api/admin/categories", formData);
+        await axiosInstance.post("/admin/categories", formData);
       }
 
       navigate("/admin/categories");

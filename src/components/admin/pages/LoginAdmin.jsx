@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../../api/axios";
 
 export default function LoginAdmin() {
   const { setUser } = useContext(AuthContext);
@@ -10,14 +11,10 @@ export default function LoginAdmin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:8000/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
+      const res = await axiosInstance.post("/admin/login", formData);
+      const data = res.data;
 
-      if (res.ok) {
+      if (res.status === 200 || res.status === 201) {
         // Lưu user vào context
         setUser({ ...data.admin, isAdmin: true });
         // Lưu token nếu cần

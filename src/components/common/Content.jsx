@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import axiosInstance from "../../api/axios";
 import Carousel from "react-bootstrap/Carousel";
 import { ChevronLeft, ChevronRight, Gift, Star, Truck, Shield, Play, Pause, Sparkles, Leaf, Package, Heart } from "lucide-react";
 import "../../styles/home.css";
@@ -112,7 +112,7 @@ const Content = () => {
     setNewsletterLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:8000/api/newsletter/subscribe", {
+      const response = await axiosInstance.post("/newsletter/subscribe", {
         email: email
       });
 
@@ -145,10 +145,10 @@ const Content = () => {
         setIsLoading(true);
 
         const [slidersRes, giftsRes, categoriesRes, testimonialsRes] = await Promise.all([
-          axios.get("http://localhost:8000/api/homepage/sliders"),   // ✅ slider API
-          axios.get("http://localhost:8000/api/homepage/featured-gifts"),
-          axios.get("http://localhost:8000/api/homepage/categories"),
-          axios.get("http://localhost:8000/api/homepage/testimonials"),
+          axiosInstance.get("/homepage/sliders"),   // ✅ slider API
+          axiosInstance.get("/homepage/featured-gifts"),
+          axiosInstance.get("/homepage/categories"),
+          axiosInstance.get("/homepage/testimonials"),
         ]);
 
         setSliders(slidersRes.data.data || []);

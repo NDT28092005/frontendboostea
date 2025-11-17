@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../../api/axios";
 import "../../../styles/admin.css";
 
 export default function UsersList() {
     const [users, setUsers] = useState([]);
 
     const loadUsers = async () => {
-        const res = await axios.get("http://localhost:8000/api/admin/users");
+        const res = await axiosInstance.get("/admin/users");
 
         // ✅ Sắp xếp theo ID tăng dần trước khi set vào state
         setUsers(res.data.sort((a, b) => a.id - b.id));
@@ -19,7 +19,7 @@ export default function UsersList() {
     const deleteUser = async (id) => {
         if (!confirm("Bạn có chắc chắn muốn xóa user này?")) return;
 
-        await axios.delete(`http://localhost:8000/api/admin/users/${id}`);
+        await axiosInstance.delete(`/admin/users/${id}`);
         loadUsers();
     };
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   MapPin,
@@ -55,7 +55,7 @@ const CheckoutPage = () => {
   const fetchCart = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:8000/api/cart", {
+      const res = await axiosInstance.get("/cart", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCart(res.data.items || []);
@@ -95,8 +95,8 @@ const CheckoutPage = () => {
     try {
       const token = localStorage.getItem("token");
       const fullAddress = `${formData.address}, ${formData.ward}, ${formData.district}, ${formData.city}`;
-      const res = await axios.post(
-        "http://localhost:8000/api/checkout",
+      const res = await axiosInstance.post(
+        "/checkout",
         {
           items: selectedItems,
           customer_name: formData.name,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 import { useParams } from "react-router-dom";
 
 export default function ProductReviewManagement() {
@@ -15,39 +15,37 @@ export default function ProductReviewManagement() {
     comment: "",
   });
 
-  const API = "http://localhost:8000/api";
-
   const fetchReviews = async () => {
     setLoading(true);
-    const { data } = await axios.get(`${API}/products/${productId}/reviews?all=true`);
+    const { data } = await axiosInstance.get(`/products/${productId}/reviews?all=true`);
     setReviews(data); // lấy tất cả, kể cả chưa duyệt
     setLoading(false);
   };
 
   const fetchUsers = async () => {
-    const { data } = await axios.get(`${API}/admin/users`);
+    const { data } = await axiosInstance.get(`/admin/users`);
     setUsers(data);
   };
 
   const approveReview = async (id) => {
-    await axios.post(`${API}/reviews/${id}/approve`);
+    await axiosInstance.post(`/reviews/${id}/approve`);
     fetchReviews();
   };
 
   const rejectReview = async (id) => {
-    await axios.post(`${API}/reviews/${id}/reject`);
+    await axiosInstance.post(`/reviews/${id}/reject`);
     fetchReviews();
   };
 
   const deleteReview = async (id) => {
     if (!confirm("Bạn chắc chắn muốn xoá?")) return;
-    await axios.delete(`${API}/reviews/${id}`);
+    await axiosInstance.delete(`/reviews/${id}`);
     fetchReviews();
   };
 
   const submitReview = async (e) => {
     e.preventDefault();
-    await axios.post(`${API}/admin/reviews`, {
+    await axiosInstance.post(`/admin/reviews`, {
       product_id: Number(productId),
       user_id: newReview.user_id,
       rating: newReview.rating,

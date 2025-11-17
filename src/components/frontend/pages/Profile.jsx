@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 import { AuthContext } from "../../../context/AuthContext";
 import { Camera, User, Save, CheckCircle } from "lucide-react";
 import "../../../styles/profile.css";
@@ -26,8 +26,8 @@ export default function Profile() {
       f.append("name", form.name);
       if (file) f.append("avatar", file);
 
-      const res = await axios.post(
-        "http://localhost:8000/api/user/update-profile",
+      const res = await axiosInstance.post(
+        "/user/update-profile",
         f,
         {
           headers: {

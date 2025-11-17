@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 import { Filter, Grid, List, Search, ShoppingCart, Heart, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import "../../../styles/product.css";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +26,7 @@ const Products = () => {
 
     const fetchCategories = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/admin/categories");
+            const res = await axiosInstance.get("/admin/categories");
             setCategories(res.data.data ?? res.data);
         } catch (error) {
             console.error("Error fetching categories:", error);
@@ -36,7 +36,7 @@ const Products = () => {
     const fetchProducts = async (category = "all", page = 1) => {
         setIsLoading(true);
         try {
-            const res = await axios.get("http://localhost:8000/api/admin/products", {
+            const res = await axiosInstance.get("/admin/products", {
                 params: {
                     category_id: category,
                     page,

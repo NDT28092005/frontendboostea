@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "../../common/Header";
@@ -15,7 +15,7 @@ const CartPage = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.get("http://localhost:8000/api/cart", {
+      const res = await axiosInstance.get("/cart", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -36,8 +36,8 @@ const CartPage = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.put(
-        `http://localhost:8000/api/cart/update`,
+      await axiosInstance.put(
+        `/cart/update`,
         { item_id: itemId, quantity: quantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -52,7 +52,7 @@ const CartPage = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:8000/api/cart/remove/${itemId}`, {
+      await axiosInstance.delete(`/cart/remove/${itemId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

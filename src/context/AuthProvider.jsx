@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
+import axiosInstance from "../api/axios";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -17,14 +18,15 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       setToken(token);
 
-      fetch("http://localhost:8000/api/user/me", {
+      axiosInstance.get("/user/me", {
         headers: { Authorization: `Bearer ${token}` },
       })
-        .then(res => res.json())
-        .then(data => {
+        .then(res => {
+          const data = res.data;
           if (data.user) {
             if (data.user.avatar && !data.user.avatar.startsWith("http")) {
-              data.user.avatar = `http://localhost:8000/storage/${data.user.avatar}`;
+              const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+              data.user.avatar = `${baseUrl}/storage/${data.user.avatar}`;
             }
             setUser(data.user);
             localStorage.setItem("user", JSON.stringify(data.user));

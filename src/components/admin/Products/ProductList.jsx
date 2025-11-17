@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../../api/axios";
 
 export default function ProductList() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/admin/products")
+        axiosInstance.get("/admin/products")
             .then(res => setProducts(res.data.data ?? res.data))
             .catch(err => console.error(err));
     }, []);
@@ -14,7 +14,7 @@ export default function ProductList() {
     const handleDelete = async (id) => {
         if (!confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) return;
 
-        await axios.delete(`http://localhost:8000/api/admin/products/${id}`);
+        await axiosInstance.delete(`/admin/products/${id}`);
         setProducts(products.filter(item => item.id !== id)); // ✅ auto update UI
     };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 import Header from "../../common/Header";
 import Footer from "../../common/Footer";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ const MyOrders = () => {
 
         try {
             setLoading(true);
-            const res = await axios.get("http://localhost:8000/api/orders", {
+            const res = await axiosInstance.get("/orders", {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

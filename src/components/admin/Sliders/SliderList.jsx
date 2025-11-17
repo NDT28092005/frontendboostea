@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../../api/axios";
 import { Link } from "react-router-dom";
 
 export default function SliderList() {
   const [sliders, setSliders] = useState([]);
 
   const loadSliders = () => {
-    axios.get("http://localhost:8000/api/admin/sliders")
+    axiosInstance.get("/admin/sliders")
       .then(res => setSliders(res.data));
   };
 
@@ -16,7 +16,7 @@ export default function SliderList() {
 
   const deleteSlider = async (id) => {
     if (!window.confirm("Xóa slider này?")) return;
-    await axios.delete(`http://localhost:8000/api/admin/sliders/${id}`);
+    await axiosInstance.delete(`/admin/sliders/${id}`);
     setSliders(sliders.filter(slider => slider.id !== id));
   };
 

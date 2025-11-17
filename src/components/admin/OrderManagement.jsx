@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 
 export default function OrderManagement() {
-  const API = "http://localhost:8000/api/admin/orders";
 
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -11,7 +10,7 @@ export default function OrderManagement() {
   const fetchOrders = async () => {
     const token = localStorage.getItem("token");
 
-    const { data } = await axios.get(`${API}?status=${statusFilter}`, {
+    const { data } = await axiosInstance.get(`/admin/orders?status=${statusFilter}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -25,8 +24,8 @@ export default function OrderManagement() {
   const handleChangeStatus = async (id, status) => {
     const token = localStorage.getItem("token");
 
-    await axios.put(
-      `${API}/${id}/status`,
+    await axiosInstance.put(
+      `/admin/orders/${id}/status`,
       { status },
       { headers: { Authorization: `Bearer ${token}` } }
     );

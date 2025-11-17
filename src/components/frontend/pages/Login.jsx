@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../../context/AuthContext';
 import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import axiosInstance from '../../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, Leaf, Sparkles } from 'lucide-react';
 import "../../../styles/login.css"
@@ -18,19 +18,15 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('http://localhost:8000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
+      const res = await axiosInstance.post('/login', formData);
+      const data = res.data;
 
       if (data.user) {
         // Format avatar URL if needed
         const userData = { ...data.user };
         if (userData.avatar && !userData.avatar.startsWith("http")) {
-          userData.avatar = `http://localhost:8000/storage/${userData.avatar}`;
+          const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+          userData.avatar = `${baseUrl}/storage/${userData.avatar}`;
         }
 
         // 🟢 LƯU USER + TOKEN VÀO LOCAL STORAGE
@@ -58,7 +54,7 @@ export default function Login() {
   const handleGoogleSuccess = async (credentialResponse) => {
     setIsLoading(true);
     try {
-      const res = await axios.post('http://localhost:8000/api/auth/google/callback', {
+      const res = await axiosInstance.post('/auth/google/callback', {
         token: credentialResponse.credential,
       });
 
@@ -67,7 +63,8 @@ export default function Login() {
       // Format avatar URL if needed
       const userData = { ...user };
       if (userData.avatar && !userData.avatar.startsWith("http")) {
-        userData.avatar = `http://localhost:8000/storage/${userData.avatar}`;
+        const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+        userData.avatar = `${baseUrl}/storage/${userData.avatar}`;
       }
 
       // 🟢 LƯU USER + TOKEN VÀO LOCAL STORAGE

@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { register } from "../../../api/auth";
 import { GoogleLogin } from "@react-oauth/google";
 import { AuthContext } from "../../../context/AuthContext";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 
 function Register() {
   const { setUser } = useContext(AuthContext);
@@ -30,7 +30,7 @@ function Register() {
   // 🔐 Đăng ký / đăng nhập bằng Google
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/google/callback", {
+      const res = await axiosInstance.post("/auth/google/callback", {
         token: credentialResponse.credential,
       });
 

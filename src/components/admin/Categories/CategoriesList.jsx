@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../../../api/axios";
 import { Link } from "react-router-dom";
 import "../../../styles/admin.css";
 
@@ -8,7 +8,7 @@ export default function CategoriesList() {
 
   const loadData = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/admin/categories");
+      const res = await axiosInstance.get("/admin/categories");
       const sortedData = res.data.sort((a, b) => a.id - b.id);
       setCategories(sortedData);
     } catch (error) {
@@ -24,7 +24,7 @@ export default function CategoriesList() {
     if (!confirm("Bạn có chắc muốn xóa danh mục này?")) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/admin/categories/${id}`);
+      await axiosInstance.delete(`/admin/categories/${id}`);
 
       // 🚀 Không cần load lại trang — chỉ cập nhật state
       setCategories(categories.filter(c => c.id !== id));

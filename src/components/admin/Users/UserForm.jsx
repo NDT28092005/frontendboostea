@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../../../api/axios";
 import "../../../styles/admin.css";
 import { useParams } from "react-router-dom";
 export default function UserForm({ mode }) {
@@ -8,7 +8,7 @@ export default function UserForm({ mode }) {
 
     useEffect(() => {
         if (mode === "edit") {
-            axios.get(`http://localhost:8000/api/admin/users/${id}`)
+            axiosInstance.get(`/admin/users/${id}`)
                 .then(res => {
                     setForm({
                         name: res.data.name,
@@ -25,9 +25,9 @@ export default function UserForm({ mode }) {
 
         try {
             if (mode === "edit") {
-                await axios.put(`http://localhost:8000/api/admin/users/${id}`, form);
+                await axiosInstance.put(`/admin/users/${id}`, form);
             } else {
-                await axios.post(`http://localhost:8000/api/admin/users`, form);
+                await axiosInstance.post(`/admin/users`, form);
             }
 
             alert("Lưu thành công!");

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../../api/axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function SliderForm() {
@@ -16,7 +16,7 @@ export default function SliderForm() {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:8000/api/admin/sliders/${id}`)
+            axiosInstance.get(`/admin/sliders/${id}`)
                 .then(res => {
                     setForm(prev => ({
                         ...prev,
@@ -40,10 +40,10 @@ export default function SliderForm() {
         if (form.image) f.append("image", form.image);
 
         const url = id
-            ? `http://localhost:8000/api/admin/sliders/${id}`
-            : `http://localhost:8000/api/admin/sliders`;
+            ? `/admin/sliders/${id}`
+            : `/admin/sliders`;
 
-        await axios.post(url, f);
+        await axiosInstance.post(url, f);
 
         alert("Lưu thành công!");
         navigate("/admin/sliders");
