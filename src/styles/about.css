@@ -1,0 +1,471 @@
+/* About Page Styles */
+:root {
+    --primary-color: #5D7B6F;
+    --secondary-color: #A4C3A2;
+    --accent-color: #B0D4B8;
+    --light-color: #EAE7D6;
+    --extra-light-color: #D7F9FA;
+    --text-dark: #333;
+    --text-light: #666;
+    --border-color: #c4d7d0;
+    --shadow: 0 4px 15px rgba(93, 123, 111, 0.08);
+    --shadow-hover: 0 8px 25px rgba(93, 123, 111, 0.12);
+    --transition: all 0.3s ease;
+    --gradient-primary: linear-gradient(135deg, #5D7B6F 0%, #A4C3A2 100%);
+    --gradient-secondary: linear-gradient(135deg, #A4C3A2 0%, #B0D4B8 100%);
+    --gradient-accent: linear-gradient(135deg, #B0D4B8 0%, #D7F9FA 100%);
+    --gradient-light: linear-gradient(135deg, #EAE7D6 0%, #D7F9FA 100%);
+}
+
+.about-page {
+    min-height: 100vh;
+    background: var(--gradient-light);
+    overflow-x: hidden;
+}
+
+/* Hero Section */
+.about-hero {
+    /* padding: 100px 0 80px; */
+    background: var(--gradient-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: var(--gradient-accent);
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.about-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: var(--gradient-secondary);
+    opacity: 0.2;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.hero-icon {
+    color: var(--accent-color);
+    font-size: 3rem;
+}
+
+.hero-subtitle {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    line-height: 1.8;
+    margin-bottom: 0;
+}
+
+.hero-image {
+    position: relative;
+    height: 400px;
+    z-index: 1;
+}
+
+.floating-card {
+    position: absolute;
+    background: white;
+    padding: 20px 25px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-hover);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    color: var(--primary-color);
+    animation: float 3s ease-in-out infinite;
+}
+
+.floating-card svg {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.card-1 {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.card-2 {
+    top: 50%;
+    right: 10%;
+    animation-delay: 1s;
+}
+
+.card-3 {
+    bottom: 10%;
+    left: 20%;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Features Section */
+.about-features {
+    padding: 80px 0;
+    background: white;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    height: 100%;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.feature-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.feature-description {
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Benefits Section */
+.about-benefits {
+    padding: 80px 0;
+    background: var(--gradient-accent);
+}
+
+.benefits-content {
+    position: relative;
+    z-index: 1;
+}
+
+.benefits-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+}
+
+.benefits-intro {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.benefits-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.check-icon {
+    color: var(--accent-color);
+    font-size: 1.3rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.benefits-image {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.benefits-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-hover);
+    text-align: center;
+    max-width: 400px;
+}
+
+.benefits-icon {
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.benefits-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.benefits-card p {
+    color: var(--text-light);
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* Process Section */
+.about-process {
+    padding: 80px 0;
+    background: white;
+}
+
+.process-card {
+    background: var(--gradient-light);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    transition: var(--transition);
+    height: 100%;
+}
+
+.process-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.process-number {
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 auto 20px;
+    box-shadow: 0 4px 15px rgba(93, 123, 111, 0.3);
+}
+
+.process-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.process-description {
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Mission Section */
+.about-mission {
+    padding: 80px 0;
+    background: var(--gradient-secondary);
+}
+
+.mission-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.mission-icon {
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 30px;
+}
+
+.mission-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.mission-text {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    line-height: 1.9;
+    margin-bottom: 20px;
+}
+
+.mission-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-icon {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .floating-card {
+        position: relative;
+        margin-bottom: 15px;
+        display: inline-block;
+    }
+
+    .hero-image {
+        height: auto;
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .card-1,
+    .card-2,
+    .card-3 {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .benefits-title {
+        font-size: 2rem;
+    }
+
+    .mission-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .about-hero {
+        padding: 60px 0 40px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .hero-icon {
+        font-size: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .about-features,
+    .about-benefits,
+    .about-process,
+    .about-mission {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .feature-card {
+        padding: 25px 15px;
+    }
+
+    .benefits-card {
+        padding: 30px 20px;
+    }
+
+    .process-card {
+        padding: 30px 20px;
+    }
+}
+
