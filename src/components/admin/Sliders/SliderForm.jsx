@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axiosInstance from "../../../../api/axios";
+import axiosInstance from "../../../api/axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function SliderForm() {

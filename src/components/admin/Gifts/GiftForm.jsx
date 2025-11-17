@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "../../../api/axios";
+import axiosInstance from "../../../api/axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../../styles/admin.css";
 
@@ -16,7 +16,7 @@ export default function GiftForm({ mode="create" }) {
 
   useEffect(() => {
     if (mode === "edit" && id) {
-      axios.get(`/admin/gifts/${id}`).then(res => {
+      axiosInstance.get(`/admin/gifts/${id}`).then(res => {
         const data = res.data;
         setForm({
           name: data.name || "",
@@ -61,14 +61,14 @@ export default function GiftForm({ mode="create" }) {
       if (imageFile) fd.append('image', imageFile);
 
       if (mode === "edit") {
-        await axios.post(`/admin/gifts/${id}`, fd, {
+        await axiosInstance.post(`/admin/gifts/${id}`, fd, {
           headers: { 'Content-Type': 'multipart/form-data' },
           // Laravel expects PUT/PATCH - send _method for compatibility:
           params: { _method: 'PUT' }
         });
         alert("Cập nhật thành công");
       } else {
-        await axios.post('/admin/gifts', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
+        await axiosInstance.post('/admin/gifts', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
         alert("Tạo thành công");
       }
       navigate('/admin/gifts');

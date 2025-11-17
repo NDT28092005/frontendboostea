@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../../api/axios";
+import axiosInstance from "../../../api/axios";
 import TestimonialForm from "./TestimonialForm";
 
 const TestimonialsList = () => {
@@ -7,7 +7,7 @@ const TestimonialsList = () => {
   const [editingTestimonial, setEditingTestimonial] = useState(null);
 
   const fetchData = async () => {
-    const res = await axios.get("/admin/testimonials");
+    const res = await axiosInstance.get("/admin/testimonials");
     setTestimonials(res.data);
   };
 
@@ -17,7 +17,7 @@ const TestimonialsList = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Bạn có chắc muốn xoá?")) return;
-    await axios.delete(`/admin/testimonials/${id}`);
+    await axiosInstance.delete(`/admin/testimonials/${id}`);
     setTestimonials(testimonials.filter((item) => item.id !== id)); // không reload trang
   };
 

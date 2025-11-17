@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../../../../api/axios";
+import axiosInstance from "../../../api/axios";
 import "../../../styles/admin.css";
 
 export default function UsersList() {

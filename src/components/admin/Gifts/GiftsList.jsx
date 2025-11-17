@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../../api/axios";
+import axiosInstance from "../../../api/axios";
 import "../../../styles/admin.css";
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +11,7 @@ export default function GiftsList() {
   const load = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("/admin/gifts?per_page=100");
+      const res = await axiosInstance.get("/admin/gifts?per_page=100");
       setGifts(res.data.data || res.data); // support pagination or array
     } catch (e) {
       console.error(e);
@@ -25,7 +25,7 @@ export default function GiftsList() {
 
   const remove = async (id) => {
     if (!window.confirm("Xóa gift này?")) return;
-    await axios.delete(`/admin/gifts/${id}`);
+    await axiosInstance.delete(`/admin/gifts/${id}`);
     setGifts(prev => prev.filter(g => g.id !== id));
   };
 

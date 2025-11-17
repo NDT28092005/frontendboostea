@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axiosInstance from "../../../../api/axios";
+import axiosInstance from "../../../api/axios";
 import "../../../styles/admin.css";
 import { useParams } from "react-router-dom";
 export default function UserForm({ mode }) {

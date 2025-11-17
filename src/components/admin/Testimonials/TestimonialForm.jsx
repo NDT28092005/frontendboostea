@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../../../api/axios";
+import axiosInstance from "../../../api/axios";
 
 const TestimonialForm = ({ data, onSuccess, onCancel }) => {
   const [form, setForm] = useState({
@@ -19,9 +19,9 @@ const TestimonialForm = ({ data, onSuccess, onCancel }) => {
     if (form.avatar) formData.append("avatar", form.avatar);
 
     if (data?.id) {
-      await axios.post(`/admin/testimonials/${data.id}?_method=PUT`, formData);
+      await axiosInstance.post(`/admin/testimonials/${data.id}?_method=PUT`, formData);
     } else {
-      await axios.post("/admin/testimonials", formData);
+      await axiosInstance.post("/admin/testimonials", formData);
     }
 
     onSuccess();
