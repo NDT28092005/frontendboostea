@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axiosInstance from "../../../api/axios";
 import Header from "../../common/Header";
 import Footer from "../../common/Footer";
@@ -12,7 +12,7 @@ const MyOrders = () => {
     const [expandedOrder, setExpandedOrder] = useState(null);
     const navigate = useNavigate();
 
-    const fetchOrders = async () => {
+    const fetchOrders = useCallback(async () => {
         const token = localStorage.getItem("token");
 
         if (!token) {
@@ -33,11 +33,11 @@ const MyOrders = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [navigate]);
 
     useEffect(() => {
         fetchOrders();
-    }, []);
+    }, [fetchOrders]);
 
     const viewPayment = (order) => {
         navigate("/payment", {
@@ -55,6 +55,38 @@ const MyOrders = () => {
             setExpandedOrder(null);
         } else {
             setExpandedOrder(orderId);
+        }
+    };
+
+    const handleCancelItem = async (orderId, itemId) => {
+        const token = localStorage.getItem("token");
+        
+        if (!token) {
+            alert("Bạn cần đăng nhập để thực hiện thao tác này.");
+            return;
+        }
+
+        if (!window.confirm("Bạn có chắc chắn muốn hủy sản phẩm này?")) {
+            return;
+        }
+
+        try {
+            const res = await axiosInstance.put(
+                `/orders/${orderId}/items/${itemId}/cancel`,
+                {},
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+
+            alert("✅ " + res.data.message);
+            
+            // Cập nhật lại danh sách đơn hàng
+            await fetchOrders();
+        } catch (error) {
+            console.error("❌ Lỗi hủy sản phẩm:", error);
+            const message = error.response?.data?.message || "Không thể hủy sản phẩm. Vui lòng thử lại sau.";
+            alert("❌ " + message);
         }
     };
 
@@ -208,29 +240,53 @@ const MyOrders = () => {
 
                                     <div className="order-items">
                                         {order.items?.map((item) => (
-                                            <div key={item.id} className="order-item">
+                                            <div key={item.id} className={`order-item ${item.status === 'cancelled' ? 'cancelled-item' : ''}`}>
                                                 <div className="item-image">
                                                     <img
                                                         src={item.product?.image_url || "https://via.placeholder.com/80x80"}
                                                         alt={item.product?.name}
                                                         className="product-thumb"
                                                     />
+                                                    {item.status === 'cancelled' && (
+                                                        <div className="cancelled-badge">Đã hủy</div>
+                                                    )}
                                                 </div>
 
                                                 <div className="item-details">
-                                                    <h4 className="item-name">{item.product?.name}</h4>
+                                                    <h4 className="item-name">
+                                                        {item.product?.name}
+                                                        {item.status === 'cancelled' && (
+                                                            <span className="cancelled-label"> (Đã hủy)</span>
+                                                        )}
+                                                    </h4>
 
                                                     <div className="item-meta">
                                                         <span className="item-quantity">x{item.quantity}</span>
-                                                        <span className="item-price">
+                                                        <span className={`item-price ${item.status === 'cancelled' ? 'cancelled-price' : ''}`}>
                                                             {item.price.toLocaleString()} ₫
                                                         </span>
                                                     </div>
                                                 </div>
 
                                                 <div className="item-total">
-                                                    <strong>{(item.price * item.quantity).toLocaleString()} ₫</strong>
+                                                    <strong className={item.status === 'cancelled' ? 'cancelled-price' : ''}>
+                                                        {(item.price * item.quantity).toLocaleString()} ₫
+                                                    </strong>
                                                 </div>
+
+                                                {/* Nút hủy sản phẩm - chỉ hiển thị nếu item chưa bị hủy và đơn hàng chưa hoàn thành */}
+                                                {item.status !== 'cancelled' && 
+                                                 !['completed', 'cancelled', 'delivered'].includes(order.status) && (
+                                                    <div className="item-actions">
+                                                        <button
+                                                            className="cancel-item-btn"
+                                                            onClick={() => handleCancelItem(order.id, item.id)}
+                                                            title="Hủy sản phẩm này"
+                                                        >
+                                                            Hủy
+                                                        </button>
+                                                    </div>
+                                                )}
                                             </div>
                                         ))}
                                     </div>
@@ -238,7 +294,7 @@ const MyOrders = () => {
                                     <div className="order-footer">
                                         <div className="order-summary">
                                             <div className="summary-row">
-                                                <span>Thành tiền ({order.items?.length || 0} sản phẩm):</span>
+                                                <span>Thành tiền ({order.items?.filter(item => item.status !== 'cancelled').length || 0} sản phẩm):</span>
                                                 <span className="total-amount">{order.total_price.toLocaleString()} ₫</span>
                                             </div>
                                             <div className="payment-info">

@@ -301,6 +301,36 @@
   border-bottom: none;
 }
 
+/* Cancelled Item Styles */
+.order-item.cancelled-item {
+  opacity: 0.6;
+  background-color: rgba(244, 67, 54, 0.05);
+}
+
+.cancelled-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #F44336;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.cancelled-label {
+  color: #F44336;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.cancelled-price {
+  text-decoration: line-through;
+  color: #999 !important;
+}
+
 .item-image {
   width: 80px;
   height: 80px;
@@ -308,6 +338,34 @@
   overflow: hidden;
   margin-right: 15px;
   flex-shrink: 0;
+  position: relative;
+}
+
+/* Item Actions */
+.item-actions {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.cancel-item-btn {
+  padding: 6px 12px;
+  background-color: #fff;
+  color: #F44336;
+  border: 1px solid #F44336;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.cancel-item-btn:hover {
+  background-color: #F44336;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
 }
 
 .item-image img {
