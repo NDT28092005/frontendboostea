@@ -75,7 +75,7 @@ const About = () => {
             {/* Hero Section */}
             <section className="about-hero">
                 <Container>
-                    <Row className="align-items-center">
+                    <Row className="">
                         <Col lg={6}>
                             <div className="hero-content">
                                 <h1 className="hero-title">

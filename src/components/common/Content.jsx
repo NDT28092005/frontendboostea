@@ -361,7 +361,7 @@ const Content = () => {
               <h3 className="section-title">Danh mục sản phẩm</h3>
               <div className="title-decoration"></div>
             </div>
-            <a href="/categories" className="view-all-link">Xem tất cả</a>
+            <a href="/products" className="view-all-link">Xem tất cả</a>
           </div>
 
           {isLoading ? (
