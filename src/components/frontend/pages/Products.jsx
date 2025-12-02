@@ -227,7 +227,7 @@ const Products = () => {
                                 </div>
                             ) : (
                                 <>
-                                    <div className={`product-list ${viewMode === "list" ? "list-view" : "grid-view"}`}>
+                                    <div className={`product-list related-grid ${viewMode === "list" ? "list-view" : "grid-view"}`}>
                                         {products.map(item => (
                                             <div className="product-card" key={item.id}>
                                                 <div className="product-image-container">

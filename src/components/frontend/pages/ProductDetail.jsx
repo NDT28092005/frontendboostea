@@ -370,10 +370,10 @@ const ProductDetail = () => {
                                 </button>
                             </div>
 
-                            <div className="extra-actions">
+                            {/* <div className="extra-actions">
                                 <button className="action-btn"><Heart size={18} /> Yêu thích</button>
                                 <button className="action-btn"><Share2 size={18} /> Chia sẻ</button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 

@@ -1167,28 +1167,6 @@
   }
 }
 
-@media (max-width: 576px) {
-  .main-image {
-    height: 300px;
-  }
-  
-  .product-meta {
-    padding: 12px;
-  }
-  
-  .extra-actions {
-    justify-content: space-between;
-  }
-  
-  .product-tabs {
-    padding: 20px 15px;
-  }
-  
-  .related-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-  }
-}
 
 /* Responsive for max-width 579px */
 @media (max-width: 579px) {
