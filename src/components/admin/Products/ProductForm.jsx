@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../../api/axios";
-
 export default function ProductForm({ mode }) {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -32,18 +31,18 @@ export default function ProductForm({ mode }) {
 
     // ✅ Load product nếu editing
     useEffect(() => {
-        if (mode === "edit") {
+        if (mode === "edit" && id) {
             axiosInstance.get(`/admin/products/${id}`)
                 .then(res => {
                     const data = res.data;
 
                     setForm({
                         name: data.name ?? "",
-                        category_id: data.category_id ?? "",
+                        category_id: data.category_id ? String(data.category_id) : "",
                         price: data.price ?? "",
                         original_price: data.original_price ?? "",
                         stock: data.stock ?? "",
-                        featured: data.featured == 1,
+                        featured: data.featured == 1 || data.featured === true,
                         description: data.description ?? "",
                         image: null,
                         images: [],
@@ -58,6 +57,10 @@ export default function ProductForm({ mode }) {
                     if (data.images && data.images.length > 0) {
                         setPreviewImages(data.images.map(img => img.image_url));
                     }
+                })
+                .catch(err => {
+                    console.error("Error loading product:", err);
+                    alert("Không thể tải thông tin sản phẩm. Vui lòng thử lại.");
                 });
         }
     }, [id, mode]);
@@ -173,10 +176,23 @@ export default function ProductForm({ mode }) {
                     </div>
                 )}
 
-                <label>Mô tả</label>
-                <textarea className="input"
+                <label>Mô tả (HTML)</label>
+                <textarea 
+                    className="input"
                     value={form.description}
-                    onChange={e => setForm({ ...form, description: e.target.value })} />
+                    onChange={(e) => setForm({ ...form, description: e.target.value })}
+                    rows={15}
+                    style={{
+                        fontFamily: 'monospace',
+                        fontSize: '14px',
+                        whiteSpace: 'pre-wrap',
+                        wordWrap: 'break-word'
+                    }}
+                    placeholder="Nhập HTML code ở đây. Ví dụ: &lt;h2&gt;Tiêu đề&lt;/h2&gt;&lt;p&gt;Nội dung&lt;/p&gt;"
+                />
+                <small style={{ color: '#666', marginTop: '5px', display: 'block' }}>
+                    💡 Bạn có thể nhập HTML code trực tiếp. HTML sẽ được render khi hiển thị ở trang chi tiết sản phẩm.
+                </small>
 
                 <button type="submit" className="btn btn-primary">
                     {mode === "edit" ? "💾 Lưu thay đổi" : "✅ Tạo mới"}

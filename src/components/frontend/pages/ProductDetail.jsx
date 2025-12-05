@@ -33,6 +33,34 @@ const ProductDetail = () => {
     const [selectedTab, setSelectedTab] = useState("description");
     const [isLoading, setIsLoading] = useState(true);
 
+    // ✅ Hàm convert text thuần thành HTML (tự động xuống dòng)
+    const formatDescription = (text) => {
+        if (!text) return "";
+        
+        // Kiểm tra xem text đã có HTML tags chưa
+        const hasHtmlTags = /<[a-z][\s\S]*>/i.test(text);
+        
+        if (hasHtmlTags) {
+            // Nếu đã có HTML, trả về nguyên bản
+            return text;
+        }
+        
+        // Nếu là text thuần, convert xuống dòng thành <br> và wrap trong <p>
+        return text
+            .split('\n\n') // Split theo đoạn (2 xuống dòng)
+            .map(paragraph => {
+                if (!paragraph.trim()) return '';
+                // Convert xuống dòng đơn thành <br>
+                const formatted = paragraph
+                    .split('\n')
+                    .map(line => line.trim())
+                    .filter(line => line.length > 0)
+                    .join('<br>');
+                return `<p>${formatted}</p>`;
+            })
+            .join('');
+    };
+
     // Zoom states
     const [isZoomed, setIsZoomed] = useState(false);
     const [lensPosition, setLensPosition] = useState({ x: 0, y: 0 });
@@ -53,13 +81,30 @@ const ProductDetail = () => {
             try {
                 const res = await axiosInstance.get(`/admin/products/${id}`);
 
-                // ✅ Nếu không có gallery thì thêm ảnh chính vào gallery
-                const images = res.data.images && res.data.images.length > 0
-                    ? res.data.images
-                    : [{ image_url: res.data.image_url }];
+                // ✅ Xử lý ảnh: lấy từ product_images table và thêm ảnh chính vào đầu
+                let images = [];
+                
+                // Thêm ảnh chính vào đầu nếu có
+                if (res.data.image_url) {
+                    images.push({ image_url: res.data.image_url });
+                }
+                
+                // Thêm các ảnh phụ từ product_images table
+                if (res.data.images && res.data.images.length > 0) {
+                    // Lọc bỏ ảnh trùng với ảnh chính (nếu có)
+                    const additionalImages = res.data.images.filter(img => 
+                        !res.data.image_url || img.image_url !== res.data.image_url
+                    );
+                    images = [...images, ...additionalImages];
+                }
+
+                // Nếu không có ảnh nào, tạo mảng rỗng
+                if (images.length === 0) {
+                    images = res.data.image_url ? [{ image_url: res.data.image_url }] : [];
+                }
 
                 setProduct({ ...res.data, images });
-                setMainImage(images[0].image_url);
+                setMainImage(images.length > 0 ? images[0].image_url : '');
 
                 if (res.data.category_id) {
                     const relatedRes = await axiosInstance.get(`/admin/products`, {
@@ -394,7 +439,7 @@ const ProductDetail = () => {
                                     {product.description ? (
                                         <div
                                             className="product-description-content"
-                                            dangerouslySetInnerHTML={{ __html: product.description }}
+                                            dangerouslySetInnerHTML={{ __html: formatDescription(product.description) }}
                                         />
                                     ) : (
                                         <p>Chưa có mô tả cho sản phẩm.</p>
