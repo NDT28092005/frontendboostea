@@ -87,7 +87,7 @@
 
 .main-image {
   width: 100%;
-  height: 500px;
+  height: 700px!important;
   object-fit: cover;
   transition: var(--transition);
 }
@@ -1187,7 +1187,8 @@
   }
   
   .main-image {
-    height: 280px;
+    height: 300px!important;
+    object-fit: contain !important;
   }
   
   .thumbnail {

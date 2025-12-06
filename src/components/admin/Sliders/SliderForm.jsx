@@ -18,12 +18,14 @@ export default function SliderForm() {
         if (id) {
             axiosInstance.get(`/admin/sliders/${id}`)
                 .then(res => {
+                    const s = res.data.data; // ← lấy đúng data
+
                     setForm(prev => ({
                         ...prev,
-                        title: res.data.title ?? "",
-                        redirect_url: res.data.redirect_url ?? "",
-                        order: res.data.order ?? 0,
-                        imagePreview: res.data.image_url ?? "",
+                        title: s.title ?? "",
+                        redirect_url: s.redirect_url ?? "",
+                        order: s.order ?? 0,
+                        imagePreview: s.image_url ?? "",
                     }));
                 })
                 .catch(err => console.log(err));
@@ -43,11 +45,17 @@ export default function SliderForm() {
             ? `/admin/sliders/${id}`
             : `/admin/sliders`;
 
+        // Nếu là update => dùng PUT
+        if (id) {
+            f.append("_method", "PUT");
+        }
+
         await axiosInstance.post(url, f);
 
         alert("Lưu thành công!");
         navigate("/admin/sliders");
     };
+
 
     return (
         <div className="container admin-page">

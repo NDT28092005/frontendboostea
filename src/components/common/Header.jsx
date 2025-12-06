@@ -131,7 +131,7 @@ export default function Header() {
         <Navbar expand="lg" className={`header ${scrolled ? "header-shadow" : ""}`} sticky="top">
             <Container className="header-container">
                 <Navbar.Brand className="header-logo" onClick={() => handleNavClick("/")}>
-                    <span><img src="/logo.png" alt="Boostea" style={{ height: '60px', marginRight: '8px', background:"none" }} /> Boostea</span>
+                    <span><img src="/logo.png" alt="Boostea" style={{ height: '60px', marginRight: '8px', background:"none" }} /> Boos<span style={{color:"red"}}>Tea</span></span>
                 </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className="mobile-toggle">

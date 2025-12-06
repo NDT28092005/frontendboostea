@@ -333,9 +333,8 @@
 
 .product-image-container {
   position: relative;
-  height: 250px;
+  height: 400px!important;
   overflow: hidden;
-  flex-shrink: 0;
 }
 
 .product-image-container img {
