@@ -85,7 +85,7 @@ const CartPage = () => {
   const getSelectedTotal = () => {
     return cart
       .filter(item => selectedItems.includes(item.id))
-      .reduce((sum, item) => sum + item.quantity * item.price_at_time, 0);
+      .reduce((sum, item) => sum + item.quantity * item.price_at_time, 30000);
   };
 
   const getSelectedItemsCount = () => {
@@ -247,12 +247,11 @@ const CartPage = () => {
 
                   <div className="summary-row">
                     <span>Tạm tính:</span>
-                    <span>{getSelectedTotal().toLocaleString()} ₫</span>
+                    <span>{(getSelectedTotal() - 30000).toLocaleString()} ₫</span>
                   </div>
-
                   <div className="summary-row">
                     <span>Phí vận chuyển:</span>
-                    <span>Miễn phí</span>
+                    <span>30.000 đ</span>
                   </div>
 
                   <div className="summary-divider"></div>
